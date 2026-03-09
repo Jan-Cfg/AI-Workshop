@@ -14,3 +14,5 @@ Use a clean, modular design (e.g., separating file IO from image manipulation lo
 
 No hardcoding (use configuration/options patterns).
 
+
+
