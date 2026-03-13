@@ -1,0 +1,104 @@
+```markdown
+# Azure DevOps MCP – Story-to-PR Workflow
+
+## Overview
+
+An end-to-end **Azure DevOps MCP** workflow was implemented using **VS Code**,
+**GPT 5.2 Codex**, and **GitHub Copilot** to address a minor **AppDynamics
+configuration issue** in an Angular application. The implementation covered the
+complete lifecycle from **Azure DevOps story creation** to **pull request
+creation and review setup**.
+
+---
+
+## Context
+
+- **Change Scope:** Minor bug fix related to AppDynamics configuration in an
+  Angular app.
+- **Environment & Tools:**
+  - VS Code
+  - Azure DevOps MCP (configured via `mcp.json`)
+  - GPT 5.2 Codex
+  - GitHub Copilot (Agent mode)
+
+---
+
+## MCP Configuration
+
+- Azure DevOps MCP was configured using a custom `mcp.json` file.
+- MCP tools were enabled and consumed directly from VS Code using GPT 5.2 Codex
+  for orchestration.
+
+---
+
+## Implementation Flow
+
+### 1. Azure DevOps Story Creation
+
+- Created an Azure DevOps **User Story** using MCP.
+- The story was automatically:
+  - Added to the correct project
+  - Assigned to the current user
+  - Linked to the development activity for traceability
+
+**Tool Used:**
+
+- `wit_create_work_item`
+
+---
+
+### 2. Code Changes
+
+- The AppDynamics configuration issue in the Angular application was fixed using
+  **GitHub Copilot Agent**.
+- Code changes were committed and pushed to a feature branch.
+
+---
+
+### 3. Pull Request Creation
+
+- All repositories under the Azure DevOps project were fetched.
+- A pull request was created from the feature branch to the target branch.
+
+**Tools Used:**
+
+- `repo_list_repos_by_project`
+- `repo_create_pull_request`
+
+---
+
+### 4. Reviewer Assignment
+
+- Identity resolution was performed to fetch Azure DevOps identity IDs for Tech
+  Leads.
+- Tech Leads were added as reviewers on the pull request.
+
+**Tools Used:**
+
+- `core_get_identity_ids`
+- `repo_update_pull_request_reviewers`
+
+---
+
+### 5. Pull Request Review Comments
+
+- A review thread was added to the pull request to summarize:
+  - The AppDynamics configuration change
+  - Validation performed
+  - Areas requiring review attention
+
+**Tool Used:**
+
+- `repo_create_pull_request_thread`
+
+---
+
+## Outcome
+
+- Azure DevOps story creation was automated and linked to development.
+- Code changes were completed efficiently with Copilot assistance.
+- Pull request creation, reviewer assignment, and review comments were fully
+  automated using Azure DevOps MCP.
+- Achieved clear **end-to-end traceability**:  
+  **Story → Code → Pull Request → Review**
+```
