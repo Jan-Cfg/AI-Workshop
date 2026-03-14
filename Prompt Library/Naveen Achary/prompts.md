@@ -34,7 +34,7 @@ Please answer the following questions:
 End of Step 1:
 Once you’ve answered these questions, summarize your responses and any other testing inputs or constraints you’d like to consider.
 
-# STEP 2 — Security Test Case Matrix Outline
+# STEP 2 - Security Test Case Matrix Outline
 Goal: Build an initial outline for the test cases based on the functional and non-functional requirements gathered.
 Generate a test_case_outline.md with the following details:
 Test ID
