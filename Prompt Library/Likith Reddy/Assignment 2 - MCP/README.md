@@ -1,4 +1,4 @@
-# Assignment 2 - MCP Server and Tool (Python)
+# Assignment 2 - MCP Server and Tool
 
 ## MCP Server Selected
 GitHub MCP Server  
