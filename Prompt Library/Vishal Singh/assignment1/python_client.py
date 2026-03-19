@@ -5,7 +5,6 @@ from mcp.client.stdio import stdio_client,StdioServerParameters
 
     
 async def main():
-    selected_tool = None  
     server_params = StdioServerParameters(
         command="docker",
         args=["run","-i","--rm","-e","GITHUB_PERSONAL_ACCESS_TOKEN=<Your PAT>",
