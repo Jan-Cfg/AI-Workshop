@@ -1,0 +1,39 @@
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# If you use the Maven Wrapper, keep the jar and properties, but ignore the script if preferred.
+# Typically, we keep !.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse ###
+.settings/
+.classpath
+.project
+.factorypath
+bin/
+
+### Spring Boot ###
+*.log
+.sts4-cache/
+
+### Operating System ###
+.DS_Store
+Thumbs.db
+
+### Sensitive Files (Optional but recommended) ###
+.env
+application-local.properties
+application-local.yml
