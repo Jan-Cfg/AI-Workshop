@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database with pgvector Extension
+  postgres:
+    image: pgvector/pgvector:pg15-latest
+    container_name: rag_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-rag_database}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres_password}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rag_network
+
+  # Ollama LLM Service
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rag_ollama
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag_network
+    entrypoint: /bin/sh
+    command: -c "ollama serve & while [ true ]; do sleep 1; done"
+
+  # RAG Application
+  rag-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag_app
+    environment:
+      # Ollama Configuration
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-mistral}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-nomic-embed-text}
+      
+      # PostgreSQL Configuration
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-rag_database}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres_password}
+      
+      # RAG Configuration
+      RAG_CHUNK_SIZE: ${RAG_CHUNK_SIZE:-500}
+      RAG_CHUNK_OVERLAP: ${RAG_CHUNK_OVERLAP:-50}
+      RAG_SIMILARITY_THRESHOLD: ${RAG_SIMILARITY_THRESHOLD:-0.7}
+      RAG_TOP_K: ${RAG_TOP_K:-5}
+      
+      # Security
+      API_KEY: ${API_KEY:-your_secret_api_key}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-your_encryption_key}
+      DEBUG: ${DEBUG:-False}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    volumes:
+      - ./documents:/app/documents
+      - ./processed_documents:/app/processed_documents
+    networks:
+      - rag_network
+    command: python src/main.py
+
+volumes:
+  postgres_data:
+    driver: local
+  ollama_data:
+    driver: local
+
+networks:
+  rag_network:
+    driver: bridge
