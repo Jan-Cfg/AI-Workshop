@@ -1,8 +1,7 @@
 import os
 import json
 import httpx
-from mcp.server.stdio import stdio_server
-from mcp.types import Tool, TextContent, ToolResult
+from mcp.types import CallToolResult, TextContent, Tool
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "").strip()
 HEADERS = {
