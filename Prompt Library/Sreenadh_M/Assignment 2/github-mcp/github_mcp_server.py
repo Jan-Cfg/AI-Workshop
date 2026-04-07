@@ -120,14 +120,11 @@ TOOLS = [
     )
 ]
 
-server = stdio_server("github-mcp")
 
-@server.list_tools()
-async def list_tools() -> list[Tool]:
+def list_tools() -> list[Tool]:
     return TOOLS
 
-@server.call_tool()
-async def call_tool(name: str, arguments: dict) -> ToolResult:
+async def call_tool(name: str, arguments: dict) -> CallToolResult:
     if name == "list_repositories":
         payload = await list_repositories(**arguments)
     elif name == "get_repository":
@@ -139,9 +136,8 @@ async def call_tool(name: str, arguments: dict) -> ToolResult:
     else:
         payload = json.dumps({"error": f"Unknown tool: {name}"})
 
-    return ToolResult(content=[TextContent(type="text", text=payload)])
+    return CallToolResult(content=[TextContent(type="text", text=payload)])
 
 if __name__ == "__main__":
-    print("GitHub MCP Server running on stdio")
+    print("GitHub MCP Server minimal module")
     print("Available tools:", ", ".join(tool.name for tool in TOOLS))
-    server.run()
