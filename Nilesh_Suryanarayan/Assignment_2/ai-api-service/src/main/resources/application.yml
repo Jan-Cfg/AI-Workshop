@@ -1,0 +1,28 @@
+server:
+  servlet:
+    context-path: /ai-api-service
+  port: 8080
+
+#cors:
+#  origins:
+#    - "http://localhost:4200"
+
+ai:
+  api:
+    url: http://localhost:11434/api/chat
+
+spring:
+  jmx:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    com.coforgeaiworkshop: INFO
