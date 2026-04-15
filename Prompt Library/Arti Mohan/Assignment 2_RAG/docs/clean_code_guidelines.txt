@@ -1,0 +1,8 @@
+function_design
+Functions should have clear, descriptive names and should do only one thing. Long functions should be split into smaller helper functions. Avoid deeply nested logic when possible.
+
+naming_rules
+Use meaningful variable and function names. Avoid single-letter names except for very small loops. Names should clearly describe intent and improve readability.
+
+exception_handling
+Handle exceptions properly. Avoid broad except blocks unless absolutely necessary. Log useful error messages and keep business logic separate from input and output handling.
