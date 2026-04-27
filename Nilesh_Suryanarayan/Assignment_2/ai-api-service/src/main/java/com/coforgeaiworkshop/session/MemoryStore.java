@@ -5,10 +5,12 @@ import java.util.Map;
 
 public interface MemoryStore {
 
-	public void saveMemory(String sessionId, String content, Map<String, Object> metadata);
+	void saveMemory(String sessionId, String content, Map<String, Object> metadata);
 	
-    public List<String> searchRelevantMemories(String sessionId, String query, int topK);
+	void saveMemory(String sessionId, String content);
+	
+    List<String> searchRelevantMemories(String sessionId, String query, int topK);
     
-    public void clearMemories(String sessionId);
+    void clearBySession(String sessionId);
 	
 }

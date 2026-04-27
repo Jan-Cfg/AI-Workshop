@@ -15,5 +15,6 @@ public class AiMessage {
 
 	private AiRole role;
 	private String content;
+	private String summary;
 	private LocalDateTime createUpdateTimestamp;
 }

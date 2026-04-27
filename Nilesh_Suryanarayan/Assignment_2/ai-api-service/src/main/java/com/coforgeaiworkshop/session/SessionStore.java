@@ -6,7 +6,17 @@ import com.coforgeaiworkshop.model.AiMessage;
 
 public interface SessionStore {
 
-	public List<AiMessage> getMessages(String sessionId);
+	/** 
+	 * Gets all the messages from the conversation
+	 * 
+	 * */
+	public List<AiMessage> getAllMessages(String sessionId);
+	
+	/** 
+	 * Gets the recent messages from the conversation
+	 * 
+	 * */
+	public List<AiMessage> getRecentMessages(String sessionId);
 	
 	public void addMessage(String sessionId, AiMessage message);
 	
