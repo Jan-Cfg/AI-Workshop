@@ -1,0 +1,1 @@
+Used an mcp server zereight/gitlab-mcp which connects intellij idea to gitlab and we can ask the ghcp agent to create a commit and push to our remote repository and it does it. Advantage is we don't have to manually commit or push the code using commands.
